@@ -40,14 +40,15 @@ pipeline_web_scraping/
 │ ├─ load.py # Persistência no banco SQLite
 │ ├─ pipeline.py # Execução da pipeline
 │ ├─ task.py # Classe base para tarefas
+| ├─init_db.py
 │ └─ logger_config.py # Configuração de logs
 │
 ├─ data/
 │ ├─ raw/ # Dados brutos coletados
 │ ├─ processed/ # Dados limpos e processados
 │ └─ database/ # Banco SQLite
-│
-└─ main.py # Script principal da pipeline
+├─notbooks
+  ├─main.ipynb # Script principal da pipeline
 ```
 
 
@@ -56,7 +57,7 @@ pipeline_web_scraping/
  Clone o repositório:
 
 ```bash
-git clone https://github.com/dantedod/Pipeline_web_scraping.git
+git clone https://github.com/dantedod/Pipeline_web_scraping_.git
 cd Pipeline_web_scraping
 ````
 Criar ambiente virtual
