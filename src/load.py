@@ -5,7 +5,7 @@ from typing import Tuple
 
 
 class Load:
-    def __init__(self, db_path="../data/database/pipeline.db"):
+    def __init__(self, db_path="../data/analytcs/pipeline.db"):
         os.makedirs(os.path.dirname(db_path), exist_ok=True)
         self.db_path = db_path
 
@@ -93,6 +93,12 @@ class Load:
                 df["ticker"] = df["nome"]
             else:
                 df["ticker"] = "DESCONHECIDO"
+
+        if "nome" not in df.columns or df["nome"].isnull().all():
+            if "Empresa" in df.columns:
+                df["nome"] = df["Empresa"]
+            else:
+                df["nome"] = df["ticker"]
 
         cols_expected = ["ticker", "nome", "setor", "pais", "bolsa"]
         for c in cols_expected:
