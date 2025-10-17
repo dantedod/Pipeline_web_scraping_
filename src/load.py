@@ -14,12 +14,6 @@ class Load:
         conn.execute("PRAGMA foreign_keys = ON;")
         return conn
 
-    def _col_map(self, row, candidates):
-        for c in candidates:
-            if c in row.index:
-                return row[c]
-        return None
-
     def save_news(self, df: pd.DataFrame) -> Tuple[int, int]:
         if df is None or df.empty:
             return 0, 0
@@ -29,14 +23,10 @@ class Load:
             columns={
                 "NoticiaID": "noticia_id",
                 "NoticiaId": "noticia_id",
-                "titulo": "titulo",
                 "title": "titulo",
-                "url": "url",
                 "link": "url",
-                "lead": "lead",
                 "summary": "lead",
                 "dataHora": "data_hora",
-                "data_hora": "data_hora",
                 "published_at": "data_hora",
             }
         )
@@ -71,15 +61,10 @@ class Load:
         df = df.copy()
         df = df.rename(
             columns={
-                "ticker": "ticker",
                 "Ticker": "ticker",
-                "nome": "nome",
                 "Nome": "nome",
-                "setor": "setor",
                 "Setor": "setor",
-                "pais": "pais",
                 "Pais": "pais",
-                "bolsa": "bolsa",
                 "Bolsa": "bolsa",
             }
         )
@@ -131,16 +116,8 @@ class Load:
 
         df = df.rename(
             columns={
-                "Date": "Date",
                 "date": "Date",
-                "Open": "Open",
-                "High": "High",
-                "Low": "Low",
-                "Close": "Close",
-                "Volume": "Volume",
-                "Data_Coletada": "Data_Coletada",
                 "data_coletada": "Data_Coletada",
-                "ticker": "ticker",
             }
         )
 
@@ -171,16 +148,15 @@ class Load:
             except:
                 return None
 
-        df["date_iso"] = df["Date"].apply(normalize_date)
-
-        df = df[df["date_iso"].notna() & df["ticker"].notna()].copy()
+        df["Date"] = df["Date"].apply(normalize_date)
+        df = df[df["Date"].notna() & df["ticker"].notna()].copy()
 
         for num in ["Open", "High", "Low", "Close", "Volume"]:
             df[num] = pd.to_numeric(df[num], errors="coerce")
 
         records = df[
             [
-                "date_iso",
+                "Date",
                 "ticker",
                 "Open",
                 "High",
