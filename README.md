@@ -58,7 +58,7 @@ pipeline_web_scraping/
 
 ```bash
 git clone https://github.com/dantedod/Pipeline_web_scraping_.git
-cd Pipeline_web_scraping
+cd Pipeline_web_scraping_
 ````
 Criar ambiente virtual
 ```bash
